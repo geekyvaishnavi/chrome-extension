@@ -38,8 +38,7 @@ export const useTasks = () => {
       isCompleted: false
     };
 
-    const sorted = [newTask, ...tasks].sort((a, b) => b.priority - a.priority);
-    updateStorage(sorted);
+    updateStorage([newTask, ...tasks]);
   };
 
   const deleteTask = (uuid) => {
