@@ -2,13 +2,16 @@
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
   if (req.type === "GET_MODE") {
     chrome.storage.sync.get(["mode"], (res) => {
-      sendResponse({ mode: res.mode || "light" });
+      const mode = res.mode === 1 ? "dark" : "light";
+      sendResponse({ mode });
     });
     return true;
   }
 
   if (req.type === "SET_MODE") {
-    chrome.storage.sync.set({ mode: req.mode }, () => {
+    const modeValue = req.mode === "dark" ? 1 : 0;
+
+    chrome.storage.sync.set({ mode: modeValue }, () => {
       sendResponse({ success: true });
     });
     return true;
@@ -29,15 +32,7 @@ const setBadge = (value) => {
   });
 };
 
-// Event Listeners 
-chrome.windows.onCreated.addListener(() => {
-  chrome.storage.sync.get(["tasks"], (res) => {
-    setBadge(res.tasks?.length ? res.tasks.length.toString() : "");
-  });
-});
-
-
-// init badge on install and startup
+// Init badge
 const initBadge = () => {
   chrome.storage.sync.get(["tasks"], (res) => {
     const length = res.tasks?.length || 0;
@@ -45,12 +40,12 @@ const initBadge = () => {
   });
 };
 
-// events
+// Events
 chrome.runtime.onInstalled.addListener(initBadge);
 chrome.runtime.onStartup.addListener(initBadge);
 chrome.windows.onCreated.addListener(initBadge);
 
-// storage change
+// Storage change
 chrome.storage.onChanged.addListener((changes) => {
   const tasksChange = changes.tasks;
   if (!tasksChange) return;
