@@ -3,7 +3,6 @@
 A simple **Todo Chrome Extension** built with **React** and **Vite**.
 This extension allows users to manage their tasks directly from the browser popup.
 
-
 ---
 
 ## Installation
@@ -67,33 +66,36 @@ The extension will now appear in your browser.
 ## Project Structure
 
 ```
+├── README.md
 ├── index.html
 ├── package-lock.json
 ├── package.json
+├── postcss.config.js
 ├── public
-│   ├── background
-│   │   └── background.js
 │   ├── icons
 │   │   ├── todoIcon128.png
-│   │   ├── todoicon128Full.jpg
 │   │   ├── todoIcon24.png
-│   │   └── todoIcon48.png
+│   │   ├── todoIcon48.png
+│   │   └── todoicon128Full.jpg
 │   └── manifest.json
-├── README.md
 ├── src
-│   ├── content
-│   │   └── content.js
-│   ├── index.css
-│   ├── index.jsx
+│   ├── background
+│   │   └── background.js
+│   ├── main.jsx
 │   ├── popup
-│   │   ├── App.jsx
-│   │   ├── App.scss
-│   │   ├── App.test.js
-│   │   └── custom.scss
+│   │   ├── Popup.jsx
+│   │   ├── components
+│   │   ├── constants
+│   │   └── hooks
+│   ├── styles
+│   │   └── globals.css
 │   └── utils
 │       └── storage.js
 ├── structure.txt
+├── tailwind.config.js
 └── vite.config.js
+
+
 ```
 
 ---
@@ -105,6 +107,7 @@ The extension will now appear in your browser.
 | `npm run dev`     | Starts the Vite development server  |
 | `npm run build`   | Builds the extension for production |
 | `npm run preview` | Preview the production build        |
+| `npm run format`  | Format the code                     |
 
 ---
 

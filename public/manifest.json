@@ -24,6 +24,6 @@
   "permissions": ["storage"],
 
   "background": {
-    "service_worker": "background/background.js"
+    "service_worker": "background.js"
   }
 }
