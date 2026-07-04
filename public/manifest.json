@@ -1,7 +1,7 @@
 {
   "name": "Simple Todo list",
   "manifest_version": 3,
-  "version": "2.1.0",
+  "version": "3.0.0",
 
   "description": "A simple todo list with a minimalistic UI that lets you keep track of your pending tasks.",
   "author": "vaishnavdixit98@gmail.com",
