@@ -55,7 +55,7 @@ export default function Popup() {
       className="
         w-[400px] p-3
         bg-gradient-to-b
-        from-neutral-50 to-white
+        from-neutral-100 to-neutral-50
         dark:from-neutral-950 dark:to-black
         text-neutral-900 dark:text-neutral-100
       "
