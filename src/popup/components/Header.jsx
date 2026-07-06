@@ -19,7 +19,7 @@ export default function Header({ mode, setMode }) {
         <button
           onClick={() => setMode("light")}
           className={`
-            p-1.5 rounded-md transition-all
+            p-1.5 rounded-md transition-[color]
             ${
               mode === "light"
                 ? "bg-white text-black shadow-sm"
@@ -34,7 +34,7 @@ export default function Header({ mode, setMode }) {
         <button
           onClick={() => setMode("dark")}
           className={`
-            p-1.5 rounded-md transition-all
+            p-1.5 rounded-md transition-[color]
             ${
               mode === "dark"
                 ? "bg-neutral-700 text-white shadow-sm"
