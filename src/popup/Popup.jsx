@@ -9,7 +9,11 @@ export default function Popup() {
   const [input, setInput] = useState("");
   const [priority, setPriority] = useState(2);
   const [filter, setFilter] = useState(-1);
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(
+    () =>
+      (typeof localStorage !== "undefined" && localStorage.getItem("mode")) ||
+      "light"
+  );
   const [loaded, setLoaded] = useState(false);
 
   const { tasks, addTask, deleteTask, toggleTaskCompletion, editTask } =
@@ -36,13 +40,13 @@ export default function Popup() {
 
     if (!loaded) return;
 
+    localStorage.setItem("mode", mode);
+
     if (typeof chrome !== "undefined" && chrome.runtime) {
       chrome.runtime.sendMessage({
         type: "SET_MODE",
         mode
       });
-    } else {
-      localStorage.setItem("mode", mode);
     }
   }, [mode, loaded]);
 
