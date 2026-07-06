@@ -10,17 +10,21 @@ export default function Popup() {
   const [priority, setPriority] = useState(2);
   const [filter, setFilter] = useState(-1);
   const [mode, setMode] = useState("light");
+  const [loaded, setLoaded] = useState(false);
 
-  const { tasks, addTask, deleteTask, toggleTaskCompletion, editTask } = useTasks();
+  const { tasks, addTask, deleteTask, toggleTaskCompletion, editTask } =
+    useTasks();
 
   useEffect(() => {
     if (typeof chrome !== "undefined" && chrome.runtime) {
       chrome.runtime.sendMessage({ type: "GET_MODE" }, (res) => {
         if (res?.mode) setMode(res.mode);
+        setLoaded(true);
       });
     } else {
       const saved = localStorage.getItem("mode");
       if (saved) setMode(saved);
+      setLoaded(true);
     }
   }, []);
 
@@ -30,6 +34,8 @@ export default function Popup() {
     if (mode === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
 
+    if (!loaded) return;
+
     if (typeof chrome !== "undefined" && chrome.runtime) {
       chrome.runtime.sendMessage({
         type: "SET_MODE",
@@ -38,7 +44,7 @@ export default function Popup() {
     } else {
       localStorage.setItem("mode", mode);
     }
-  }, [mode]);
+  }, [mode, loaded]);
 
   return (
     <div
