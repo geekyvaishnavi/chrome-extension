@@ -7,3 +7,8 @@ body {
   @apply antialiased;
 }
 
+/* Paint the root element dark immediately so there is no white flash before
+   React mounts. */
+html.dark {
+  @apply bg-neutral-950;
+}
