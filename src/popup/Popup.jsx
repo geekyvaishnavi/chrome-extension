@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import TaskInput from "./components/TaskInput";
 import TaskList from "./components/TaskList";
@@ -16,18 +16,25 @@ export default function Popup() {
   );
   const [loaded, setLoaded] = useState(false);
 
+  const userSetModeRef = useRef(false);
+
   const { tasks, addTask, deleteTask, toggleTaskCompletion, editTask } =
     useTasks();
+
+  const changeMode = (next) => {
+    userSetModeRef.current = true;
+    setMode(next);
+  };
 
   useEffect(() => {
     if (typeof chrome !== "undefined" && chrome.runtime) {
       chrome.runtime.sendMessage({ type: "GET_MODE" }, (res) => {
-        if (res?.mode) setMode(res.mode);
+        if (res?.mode && !userSetModeRef.current) setMode(res.mode);
         setLoaded(true);
       });
     } else {
       const saved = localStorage.getItem("mode");
-      if (saved) setMode(saved);
+      if (saved && !userSetModeRef.current) setMode(saved);
       setLoaded(true);
     }
   }, []);
@@ -61,7 +68,7 @@ export default function Popup() {
       "
     >
       <div className="p-3 space-y-4">
-        <Header mode={mode} setMode={setMode} />
+        <Header mode={mode} setMode={changeMode} />
 
         <TaskInput
           input={input}
